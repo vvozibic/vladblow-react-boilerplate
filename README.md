@@ -1,1 +1,1 @@
-# Boilerplate for quick start your applications with React, Redux, Webpack and Express.
+# Boilerplate for quick start your applications with React, Styled-components, Redux, Webpack and Express.
