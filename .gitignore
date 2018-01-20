@@ -1,0 +1,6 @@
+node_modules
+public
+
+.history
+yarn-error.log
+.DS_Store
