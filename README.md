@@ -1,2 +1,1 @@
-# avia-tickets
-Simple SPA based on React 
+# Boilerplate for quick start your applications with React, Redux, Webpack and Express.
