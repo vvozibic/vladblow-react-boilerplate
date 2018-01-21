@@ -3,14 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const SvgStore = require('webpack-svgstore-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const hotMiddlewareScript =
-  'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
-
-module.exports = {
-  entry: {
-    bundle: ['./src/index.js', hotMiddlewareScript],
-  },
+module.exports = options => ({
+  entry: options.entry,
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, '../public'),
@@ -35,8 +31,17 @@ module.exports = {
       components: path.join(__dirname, '../src/common/components'),
     },
   },
-  plugins: [
-    new CleanWebpackPlugin([path.resolve(__dirname, '../public')]),
+  plugins: options.plugins.concat([
+    new CleanWebpackPlugin(['public/**/*.*'], { root: path.resolve(__dirname, '../') }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: path.resolve(__dirname, '../public/static'),
+      },
+    ]),
     new HtmlWebpackPlugin({
       template: 'templates/index.html',
       filename: '../public/index.html',
@@ -56,6 +61,5 @@ module.exports = {
       },
     }),
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
-};
+  ]),
+});
