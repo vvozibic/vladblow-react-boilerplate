@@ -8,7 +8,7 @@ const plugins = [new webpack.HotModuleReplacementPlugin()];
 
 module.exports = require('./webpack.base.js')({
   entry: {
-    bundle: ['babel-polyfill', './src/index.js', hotMiddlewareScript],
+    bundle: ['babel-polyfill', 'react-hot-loader/patch', './src/index.js'],
   },
   plugins: plugins,
 });

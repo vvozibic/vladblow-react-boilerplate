@@ -1,5 +1,9 @@
 {
-  "plugins": ["babel-plugin-styled-components", "lodash"],
+  "plugins": [
+    "babel-plugin-styled-components",
+    "react-hot-loader/babel",
+    "lodash"
+  ],
   "presets": [
     [
       "env",

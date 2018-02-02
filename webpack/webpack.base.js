@@ -12,6 +12,10 @@ module.exports = options => ({
     path: path.resolve(__dirname, '../public'),
   },
   devtool: 'inline-source-map',
+  devServer: {
+    contentBase: '../public',
+    hot: true,
+  },
   module: {
     rules: [
       {
@@ -71,5 +75,6 @@ module.exports = options => ({
       },
     }),
     new webpack.NamedModulesPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
   ]),
 });
