@@ -1,10 +1,22 @@
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
 const plugins = [
   new UglifyJSPlugin({
-    parallel: 10,
+    beautify: false,
+    comments: false,
+    compress: {
+      sequences: true,
+      booleans: true,
+      loops: true,
+      unused: true,
+      warnings: false,
+      drop_console: true,
+      unsafe: true,
+    },
   }),
   new webpack.NoEmitOnErrorsPlugin(),
   new webpack.optimize.OccurrenceOrderPlugin(),
@@ -13,6 +25,10 @@ const plugins = [
     debug: false,
   }),
 ];
+
+if (process.env.ANALYZER) {
+  plugins.push(new BundleAnalyzerPlugin());
+}
 
 module.exports = require('./webpack.base.js')({
   entry: {

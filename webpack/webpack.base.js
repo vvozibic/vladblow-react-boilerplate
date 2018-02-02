@@ -32,9 +32,19 @@ module.exports = options => ({
     },
   },
   plugins: options.plugins.concat([
-    new CleanWebpackPlugin(['public/**/*.*'], { root: path.resolve(__dirname, '../') }),
+    new CleanWebpackPlugin(['public/**/*.*'], {
+      root: path.resolve(__dirname, '../'),
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.ANALYZER': JSON.stringify(process.env.ANALYZER || false),
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => {
+        const context = module.context;
+        return context && context.indexOf('node_modules') >= 0;
+      },
     }),
     new CopyWebpackPlugin([
       {

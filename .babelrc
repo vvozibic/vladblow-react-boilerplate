@@ -1,4 +1,14 @@
 {
-  "presets": ["es2015", "stage-0", "react", "flow"],
-  "plugins": ["styled-components"]
+  "plugins": ["babel-plugin-styled-components", "lodash"],
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false
+      }
+    ],
+    "react",
+    "stage-3",
+    "flow"
+  ]
 }
